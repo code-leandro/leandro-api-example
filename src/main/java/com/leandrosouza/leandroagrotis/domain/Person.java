@@ -19,7 +19,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 40)
     private String name;
+
     private LocalDateTime start;
     private LocalDateTime endTime;
 
@@ -38,5 +40,7 @@ public class Person {
     private Integer idLaboratory;
 
     private String idEmployer;
+
+    @Column(length = 1000)
     private String note;
 }
