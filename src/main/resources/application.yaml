@@ -1,0 +1,19 @@
+
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    url: jdbc:h2:mem:meuBanco;DB_CLOSE_DELAY=-1;MODE=MySQL
+  h2:
+    console:
+      settings:
+        trace: false
+        web-allow-others: false
+      enabled: true
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
