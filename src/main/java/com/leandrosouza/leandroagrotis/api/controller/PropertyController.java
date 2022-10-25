@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.payload.response.PropertyResponse;
 import com.leandrosouza.leandroagrotis.domain.Property;
 import com.leandrosouza.leandroagrotis.service.protocol.PropertyService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,9 @@ public class PropertyController {
     private final PropertyService service;
 
     @GetMapping
-    public ResponseEntity<List<Property>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<PropertyResponse>> findAll() {
+        List<Property> list = service.findAll();
+        List<PropertyResponse> listPropertyResponse = list.stream().map(PropertyResponse::fromModel).toList();
+        return ResponseEntity.ok(listPropertyResponse);
     }
 }

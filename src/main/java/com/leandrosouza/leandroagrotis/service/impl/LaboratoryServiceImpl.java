@@ -30,8 +30,6 @@ class LaboratoryServiceImpl implements LaboratoryService {
     @Override
     public Laboratory findById(Integer id) {
         log.info("[LaboratoryService > findById]");
-        if (id == null)
-            return null;
         return repository.findById(id).orElse(null);
     }
 

@@ -4,7 +4,7 @@ import com.leandrosouza.leandroagrotis.domain.Laboratory;
 
 import java.util.List;
 
-public class LaboratoryBuilder {
+public class FactoryLaboratoryTestUtil {
 
     public static Integer ID_TEST = 1010;
     public static String NAME_TEST = "my name test";

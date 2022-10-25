@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.payload.response.LaboratoryResponse;
 import com.leandrosouza.leandroagrotis.domain.Laboratory;
 import com.leandrosouza.leandroagrotis.service.protocol.LaboratoryService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,9 @@ public class LaboratoryController {
     private final LaboratoryService service;
 
     @GetMapping
-    public ResponseEntity<List<Laboratory>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<LaboratoryResponse>> findAll() {
+        List<Laboratory> list = service.findAll();
+        List<LaboratoryResponse> listResponse = list.stream().map(LaboratoryResponse::fromModel).toList();
+        return ResponseEntity.ok(listResponse);
     }
 }

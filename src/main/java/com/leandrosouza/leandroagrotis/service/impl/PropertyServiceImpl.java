@@ -29,9 +29,6 @@ class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Property findById(Integer id) {
-        if (id == null)
-            return null;
-
         return repository.findById(id).orElse(null);
     }
 

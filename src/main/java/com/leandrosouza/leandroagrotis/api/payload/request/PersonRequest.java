@@ -5,6 +5,7 @@ import com.leandrosouza.leandroagrotis.domain.Laboratory;
 import com.leandrosouza.leandroagrotis.domain.Person;
 import com.leandrosouza.leandroagrotis.domain.Property;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class PersonRequest {
 
     @Size(max = 40)
