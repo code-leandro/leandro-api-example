@@ -1,6 +1,8 @@
 package com.leandrosouza.leandroagrotis.service.impl;
 
+import com.leandrosouza.leandroagrotis.domain.Laboratory;
 import com.leandrosouza.leandroagrotis.domain.Person;
+import com.leandrosouza.leandroagrotis.domain.Property;
 import com.leandrosouza.leandroagrotis.exception.NotFoundException;
 import com.leandrosouza.leandroagrotis.persistence.PersonRepository;
 import com.leandrosouza.leandroagrotis.service.protocol.LaboratoryService;
@@ -33,22 +35,19 @@ class PersonServiceImpl implements PersonService {
         log.info("[PersonService > save]: {}", person);
         validatePreSave(person);
         person = repository.save(person);
-        posSave(person);
         return person;
     }
 
-    public void validatePreSave(Person person) {
+    private void validatePreSave(Person person) {
+        log.info("[PersonService > validatePreSave] {}", person);
         if (person.getIdLaboratory() != null) {
-            laboratoryService.findByIdOrThrowsNotFoundException(person.getIdLaboratory());
+            Laboratory laboratory = laboratoryService.findByIdOrThrowsNotFoundException(person.getIdLaboratory());
+            person.setLaboratory(laboratory);
         }
         if (person.getIdProperty() != null) {
-            propertyService.findByIdOrThrowsNotFoundException(person.getIdProperty());
+            Property property = propertyService.findByIdOrThrowsNotFoundException(person.getIdProperty());
+            person.setProperty(property);
         }
-    }
-
-    public void posSave(Person person) {
-        person.setLaboratory(laboratoryService.findById(person.getIdLaboratory()));
-        person.setProperty(propertyService.findById(person.getIdProperty()));
     }
 
     @Override
@@ -59,6 +58,7 @@ class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findById(Integer id) {
+        log.info("[PersonServiceImpl > findById] {}", id);
         Optional<Person> person = repository.findPerson(id);
         String messageNotFound = messageSource.getMessage("not_found.person", null, locale);
         return person.orElseThrow(() -> new NotFoundException(messageNotFound));
@@ -66,6 +66,7 @@ class PersonServiceImpl implements PersonService {
 
     @Override
     public void delete(Integer id) {
+        log.info("[PersonServiceImpl > delete] {}", id);
         repository.delete(findById(id));
     }
 

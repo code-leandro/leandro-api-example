@@ -29,15 +29,15 @@ class LaboratoryServiceImpl implements LaboratoryService {
 
     @Override
     public Laboratory findById(Integer id) {
-
+        log.info("[LaboratoryService > findById]");
         if (id == null)
             return null;
-
         return repository.findById(id).orElse(null);
     }
 
     @Override
     public Laboratory findByIdOrThrowsNotFoundException(Integer id) {
+        log.info("[LaboratoryService > findByIdOrThrowsNotFoundException]");
         return repository.findById(id).orElseThrow(() -> new NotFoundException(messageSource.getMessage("not_found.laboratory", null, locale)));
     }
 }
