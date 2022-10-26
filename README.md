@@ -16,7 +16,7 @@ git clone git@github.com:leandro-souza-dev/leandro-agrotis.git
 
 
 ### Executar o projeto
-O projeto vai subir na porta 8080. Portanto, para execução, esteja certo de estar porta estar disponível.
+O projeto vai subir na porta 8080. Portanto, para execução, esteja certo de esta porta estar disponível.
 ```
 $ cd leandro-agrotis
 $ mvn spring-boot:run
