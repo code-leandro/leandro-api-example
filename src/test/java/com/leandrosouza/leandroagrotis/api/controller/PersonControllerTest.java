@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.payload.response.ListPersonResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PersonResponse;
 import com.leandrosouza.leandroagrotis.builder.FactoryPersonTestUtil;
 import com.leandrosouza.leandroagrotis.exception.NotFoundException;
@@ -60,14 +61,14 @@ class PersonControllerTest {
     @Test
     void findAll() {
         when(service.findAll()).thenReturn(FactoryPersonTestUtil.list());
-        ResponseEntity<List<PersonResponse>> response = controller.findAll();
+        ResponseEntity<ListPersonResponse> response = controller.findAll();
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).hasSize(1);
-        assertThat(response.getBody()).isInstanceOf(List.class);
-        assertThat(response.getBody().get(0)).isInstanceOf(PersonResponse.class);
-        assertThat(response.getBody().get(0).getId()).isEqualTo(FactoryPersonTestUtil.ID);
-        assertThat(response.getBody().get(0).getName()).isEqualTo(FactoryPersonTestUtil.NAME);
+        assertThat(response.getBody().getPeople()).hasSize(1);
+        assertThat(response.getBody()).isInstanceOf(ListPersonResponse.class);
+        assertThat(response.getBody().getPeople().get(0)).isInstanceOf(PersonResponse.class);
+        assertThat(response.getBody().getPeople().get(0).getId()).isEqualTo(FactoryPersonTestUtil.ID);
+        assertThat(response.getBody().getPeople().get(0).getName()).isEqualTo(FactoryPersonTestUtil.NAME);
     }
 
     @Test

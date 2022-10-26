@@ -17,6 +17,13 @@ public class FactoryLaboratoryTestUtil {
                 .build();
     }
 
+    public static Laboratory getLaboratoryWithoutId() {
+        return Laboratory
+                .builder()
+                .name(NAME_TEST)
+                .build();
+    }
+
     public static List<Laboratory> getList() {
         return List.of(getLaboratory());
     }

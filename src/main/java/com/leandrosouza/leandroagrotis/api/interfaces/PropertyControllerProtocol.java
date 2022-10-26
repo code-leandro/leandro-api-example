@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.interfaces;
 
+import com.leandrosouza.leandroagrotis.api.payload.response.ListPropertyResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PropertyResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -11,5 +12,5 @@ public interface PropertyControllerProtocol {
 
     @ApiOperation("Listar todas as propriedades")
     @GetMapping
-    ResponseEntity<List<PropertyResponse>> findAll();
+    ResponseEntity<ListPropertyResponse> findAll();
 }

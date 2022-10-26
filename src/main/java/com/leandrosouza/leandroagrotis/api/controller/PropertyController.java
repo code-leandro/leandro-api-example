@@ -1,6 +1,7 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
 import com.leandrosouza.leandroagrotis.api.interfaces.PropertyControllerProtocol;
+import com.leandrosouza.leandroagrotis.api.payload.response.ListPropertyResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PropertyResponse;
 import com.leandrosouza.leandroagrotis.domain.Property;
 import com.leandrosouza.leandroagrotis.service.protocol.PropertyService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/property")
+@RequestMapping("/v1/property")
 @Slf4j
 @RequiredArgsConstructor
 public class PropertyController implements PropertyControllerProtocol {
@@ -23,9 +24,9 @@ public class PropertyController implements PropertyControllerProtocol {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<PropertyResponse>> findAll() {
+    public ResponseEntity<ListPropertyResponse> findAll() {
         List<Property> list = service.findAll();
         List<PropertyResponse> listPropertyResponse = list.stream().map(PropertyResponse::fromModel).toList();
-        return ResponseEntity.ok(listPropertyResponse);
+        return ResponseEntity.ok(new ListPropertyResponse(listPropertyResponse));
     }
 }

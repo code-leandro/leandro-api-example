@@ -60,6 +60,7 @@ class PersonServiceImpl implements PersonService {
     public Person findById(Integer id) {
         log.info("[PersonServiceImpl > findById] {}", id);
         Optional<Person> person = repository.findPerson(id);
+        log.info("[Person found] {}", person.orElse(null));
         String messageNotFound = messageSource.getMessage("not_found.person", null, locale);
         return person.orElseThrow(() -> new NotFoundException(messageNotFound));
     }

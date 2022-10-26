@@ -2,6 +2,7 @@ package com.leandrosouza.leandroagrotis.api.controller;
 
 import com.leandrosouza.leandroagrotis.api.interfaces.LaboratoryControllerProtocol;
 import com.leandrosouza.leandroagrotis.api.payload.response.LaboratoryResponse;
+import com.leandrosouza.leandroagrotis.api.payload.response.ListLaboratoryResponse;
 import com.leandrosouza.leandroagrotis.domain.Laboratory;
 import com.leandrosouza.leandroagrotis.service.protocol.LaboratoryService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/laboratory")
+@RequestMapping("/v1/laboratory")
 @Slf4j
 @RequiredArgsConstructor
 public class LaboratoryController implements LaboratoryControllerProtocol {
@@ -23,9 +24,9 @@ public class LaboratoryController implements LaboratoryControllerProtocol {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<LaboratoryResponse>> findAll() {
+    public ResponseEntity<ListLaboratoryResponse> findAll() {
         List<Laboratory> list = service.findAll();
         List<LaboratoryResponse> listResponse = list.stream().map(LaboratoryResponse::fromModel).toList();
-        return ResponseEntity.ok(listResponse);
+        return ResponseEntity.ok(new ListLaboratoryResponse(listResponse));
     }
 }

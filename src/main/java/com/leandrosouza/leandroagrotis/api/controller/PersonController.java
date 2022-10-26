@@ -2,6 +2,7 @@ package com.leandrosouza.leandroagrotis.api.controller;
 
 import com.leandrosouza.leandroagrotis.api.interfaces.PersonControllerProtocol;
 import com.leandrosouza.leandroagrotis.api.payload.request.PersonRequest;
+import com.leandrosouza.leandroagrotis.api.payload.response.ListPersonResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PersonResponse;
 import com.leandrosouza.leandroagrotis.domain.Person;
 import com.leandrosouza.leandroagrotis.service.protocol.PersonService;
@@ -16,7 +17,7 @@ import org.springframework.web.util.UriComponents;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/v1/person")
 @Slf4j
 @RequiredArgsConstructor
 public class PersonController implements PersonControllerProtocol {
@@ -46,9 +47,10 @@ public class PersonController implements PersonControllerProtocol {
 
     @Override
     @GetMapping
-    public ResponseEntity<List<PersonResponse>> findAll() {
+    public ResponseEntity<ListPersonResponse> findAll() {
         log.info("[Person > findAll]");
-        return ResponseEntity.ok(service.findAll().stream().map(PersonResponse::fromModel).toList());
+        List<PersonResponse> list = service.findAll().stream().map(PersonResponse::fromModel).toList();
+        return ResponseEntity.ok(new ListPersonResponse(list));
     }
 
     @Override

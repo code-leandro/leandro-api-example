@@ -1,6 +1,7 @@
 package com.leandrosouza.leandroagrotis.api.interfaces;
 
 import com.leandrosouza.leandroagrotis.api.payload.request.PersonRequest;
+import com.leandrosouza.leandroagrotis.api.payload.response.ListPersonResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PersonResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public interface PersonControllerProtocol {
 
     @ApiOperation("Listar todos")
     @GetMapping
-    ResponseEntity<List<PersonResponse>> findAll();
+    ResponseEntity<ListPersonResponse> findAll();
 
     @ApiOperation("Atualizar um item")
     @PutMapping("/{id}")

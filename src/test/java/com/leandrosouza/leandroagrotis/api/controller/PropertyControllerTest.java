@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.payload.response.ListPropertyResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PropertyResponse;
 import com.leandrosouza.leandroagrotis.builder.FactoryPropertyTestUtil;
 import com.leandrosouza.leandroagrotis.service.protocol.PropertyService;
@@ -27,13 +28,14 @@ class PropertyControllerTest {
     @Test
     void findAll() {
         when(service.findAll()).thenReturn(FactoryPropertyTestUtil.getList());
-        ResponseEntity<List<PropertyResponse>> response = controller.findAll();
+        ResponseEntity<ListPropertyResponse> response = controller.findAll();
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).hasSize(1);
-        assertThat(response.getBody()).isInstanceOf(List.class);
-        assertThat(response.getBody().get(0)).isInstanceOf(PropertyResponse.class);
-        assertThat(response.getBody().get(0).id()).isEqualTo(FactoryPropertyTestUtil.ID_TEST);
-        assertThat(response.getBody().get(0).name()).isEqualTo(FactoryPropertyTestUtil.NAME_TEST);
+        assertThat(response.getBody().getProperties()).hasSize(1);
+        assertThat(response.getBody()).isInstanceOf(ListPropertyResponse.class);
+        assertThat(response.getBody().getProperties()).isInstanceOf(List.class);
+        assertThat(response.getBody().getProperties().get(0)).isInstanceOf(PropertyResponse.class);
+        assertThat(response.getBody().getProperties().get(0).id()).isEqualTo(FactoryPropertyTestUtil.ID_TEST);
+        assertThat(response.getBody().getProperties().get(0).name()).isEqualTo(FactoryPropertyTestUtil.NAME_TEST);
     }
 }
