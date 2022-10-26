@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.interfaces.PersonControllerProtocol;
 import com.leandrosouza.leandroagrotis.api.payload.request.PersonRequest;
 import com.leandrosouza.leandroagrotis.api.payload.response.PersonResponse;
 import com.leandrosouza.leandroagrotis.domain.Person;
@@ -18,10 +19,11 @@ import java.util.List;
 @RequestMapping("/person")
 @Slf4j
 @RequiredArgsConstructor
-public class PersonController {
+public class PersonController implements PersonControllerProtocol {
 
     private final PersonService service;
 
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<PersonResponse> findById(@PathVariable Integer id) {
         Person person = service.findById(id);
@@ -29,6 +31,7 @@ public class PersonController {
         return ResponseEntity.ok().body(personResponse);
     }
 
+    @Override
     @PostMapping
     public ResponseEntity<PersonResponse> save(@RequestBody @Validated PersonRequest request) {
         log.info("[Person > save] {}", request);
@@ -41,12 +44,14 @@ public class PersonController {
         return ResponseEntity.created(uri.toUri()).body(PersonResponse.fromModel(person));
     }
 
+    @Override
     @GetMapping
     public ResponseEntity<List<PersonResponse>> findAll() {
         log.info("[Person > findAll]");
         return ResponseEntity.ok(service.findAll().stream().map(PersonResponse::fromModel).toList());
     }
 
+    @Override
     @PutMapping("/{id}")
     public ResponseEntity<PersonResponse> update(@PathVariable Integer id, @RequestBody @Validated PersonRequest personRequest) {
         service.findById(id);
@@ -56,6 +61,7 @@ public class PersonController {
         return ResponseEntity.ok().body(PersonResponse.fromModel(person));
     }
 
+    @Override
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         service.delete(id);

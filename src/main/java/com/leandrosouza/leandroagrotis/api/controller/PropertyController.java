@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.interfaces.PropertyControllerProtocol;
 import com.leandrosouza.leandroagrotis.api.payload.response.PropertyResponse;
 import com.leandrosouza.leandroagrotis.domain.Property;
 import com.leandrosouza.leandroagrotis.service.protocol.PropertyService;
@@ -16,10 +17,11 @@ import java.util.List;
 @RequestMapping("/property")
 @Slf4j
 @RequiredArgsConstructor
-public class PropertyController {
+public class PropertyController implements PropertyControllerProtocol {
 
     private final PropertyService service;
 
+    @Override
     @GetMapping
     public ResponseEntity<List<PropertyResponse>> findAll() {
         List<Property> list = service.findAll();

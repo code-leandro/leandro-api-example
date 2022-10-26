@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.controller;
 
+import com.leandrosouza.leandroagrotis.api.interfaces.LaboratoryControllerProtocol;
 import com.leandrosouza.leandroagrotis.api.payload.response.LaboratoryResponse;
 import com.leandrosouza.leandroagrotis.domain.Laboratory;
 import com.leandrosouza.leandroagrotis.service.protocol.LaboratoryService;
@@ -16,10 +17,11 @@ import java.util.List;
 @RequestMapping("/laboratory")
 @Slf4j
 @RequiredArgsConstructor
-public class LaboratoryController {
+public class LaboratoryController implements LaboratoryControllerProtocol {
 
     private final LaboratoryService service;
 
+    @Override
     @GetMapping
     public ResponseEntity<List<LaboratoryResponse>> findAll() {
         List<Laboratory> list = service.findAll();
