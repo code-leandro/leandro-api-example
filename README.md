@@ -4,6 +4,8 @@
 - Apache maven
 - JDK 17
 - Banco de dados H2 em memória
+- Swagger
+- JUnit 5
 
 Seguem abaixo algumas instruções básicas de execução.
 
@@ -14,7 +16,7 @@ git clone git@github.com:leandro-souza-dev/leandro-agrotis.git
 
 
 ### Executar o projeto
-O projeto vai subir na porta 8080. Portando para execução, esteja certo de estar porta estar disponível.
+O projeto vai subir na porta 8080. Portanto, para execução, esteja certo de estar porta estar disponível.
 ```
 $ cd leandro-agrotis
 $ mvn spring-boot:run
