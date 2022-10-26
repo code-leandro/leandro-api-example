@@ -1,5 +1,6 @@
 package com.leandrosouza.leandroagrotis.api.payload.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.leandrosouza.leandroagrotis.domain.Person;
 import lombok.AllArgsConstructor;
@@ -21,9 +22,11 @@ public class PersonResponse {
     private String name;
 
     @JsonProperty("dataInicial")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime start;
 
     @JsonProperty("dataFinal")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
     @JsonProperty(value = "infosPropriedade")
