@@ -1,8 +1,13 @@
 package com.leandrosouza.leandroagrotis.it;
 
+import com.leandrosouza.leandroagrotis.api.payload.request.LaboratoryRequest;
+import com.leandrosouza.leandroagrotis.api.payload.request.PersonRequest;
+import com.leandrosouza.leandroagrotis.api.payload.request.PropertyRequest;
 import com.leandrosouza.leandroagrotis.api.payload.response.ListPersonResponse;
 import com.leandrosouza.leandroagrotis.api.payload.response.PersonResponse;
+import com.leandrosouza.leandroagrotis.builder.FactoryLaboratoryTestUtil;
 import com.leandrosouza.leandroagrotis.builder.FactoryPersonTestUtil;
+import com.leandrosouza.leandroagrotis.builder.FactoryPropertyTestUtil;
 import com.leandrosouza.leandroagrotis.domain.Person;
 import com.leandrosouza.leandroagrotis.persistence.LaboratoryRepository;
 import com.leandrosouza.leandroagrotis.persistence.PersonRepository;
@@ -17,6 +22,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,12 +40,6 @@ public class PersonControllerIT {
     @Autowired
     PersonRepository repository;
 
-    @Autowired
-    LaboratoryRepository laboratoryRepository;
-
-    @Autowired
-    PropertyRepository propertyRepository;
-
     @Test
     void findAll() throws Exception {
 
@@ -53,6 +54,24 @@ public class PersonControllerIT {
 
         assertThat(people).isNotNull();
         assertThat(people.getPeople()).hasSize(1);
+    }
+
+    @Test
+    void save() throws Exception {
+
+        PersonRequest personRequest = FactoryPersonTestUtil.getPersonRequest();
+        personRequest.setLaboratoryRequest(new LaboratoryRequest(1, FactoryLaboratoryTestUtil.NAME_TEST));
+        personRequest.setPropertyRequest(new PropertyRequest(1, FactoryPropertyTestUtil.NAME_TEST));
+        personRequest.setStart(LocalDateTime.now());
+        personRequest.setEndTime(LocalDateTime.now());
+        personRequest.setIdEmployer("XXX");
+
+        ResponseEntity<PersonResponse> response = testRestTemplate.postForEntity("/v1/person", personRequest, PersonResponse.class);
+        PersonResponse personResponse = response.getBody();
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(personResponse.getName()).isEqualTo(FactoryPersonTestUtil.NAME);
     }
 
     @Test
