@@ -11,14 +11,14 @@ Seguem abaixo algumas instruções básicas de execução.
 
 ### Baixar o projeto usando git clone
 ```
-git clone git@github.com:leandro-souza-dev/leandro-agrotis.git
+git clone git@github.com:leandro-souza-dev/leandro-api-example.git
 ```
 
 
 ### Executar o projeto
 O projeto vai subir na porta 8080. Portanto, para execução, esteja certo de esta porta estar disponível.
 ```
-$ cd leandro-agrotis
+$ cd leandro-api-example
 $ mvn spring-boot:run
 ```
 
